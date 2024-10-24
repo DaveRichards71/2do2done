@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from .serializers import UserSerializer, TaskSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import Task
+from tasks.models import Task
 
 class TaskListCreate(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
