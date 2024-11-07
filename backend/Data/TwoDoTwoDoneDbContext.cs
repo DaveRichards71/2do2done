@@ -12,8 +12,50 @@ namespace Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // For Development Only!
-            optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS; Initial Catalog=TwoDoTwoDone_EfCore; Encrypt=False");
+            optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS; Initial Catalog=TwoDoTwoDone_EfCore; Integrated Security=True; Encrypt=False");
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Domain.Task>()
+                .HasOne(t => t.Author)
+                .WithMany()
+                .HasForeignKey("AuthorId")
+                .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Domain.Task>()
+                .HasOne(t => t.AssignedTo)
+                .WithMany()
+                .HasForeignKey("AssignedToId")
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.AssignsTasksTo)
+                .WithMany(u => u.AcceptsTasksFrom)
+                .UsingEntity(j => j.ToTable("UserUser"));
+
+            // Seed Data 
+            modelBuilder.Entity<User>()
+                .HasData(
+                    new User
+                    {
+                        Id = 1,
+                        Username = "Will",
+                        Email = "will@email.com",
+                        FirstName = "Will",
+                        LastName = "Richards",
+                        Mobile = "1234567890",
+                        CreatedDate = DateTime.Now
+                    },
+                    new User
+                    {
+                        Id = 2,
+                        Username = "charlie",
+                        Email = "charlie@email.com",
+                        FirstName = "Charlie",
+                        LastName = "Houdini",
+                        Mobile = "2345678901",
+                        CreatedDate = DateTime.Now
+                    });            
+        }
     }
 }
