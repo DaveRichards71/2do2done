@@ -1,3 +1,9 @@
+using Data;
+using Domain;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,29 +22,32 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//var summaries = new[]
-//{
-//    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-//};
+// Need instance of the database
+using var context = new TwoDoTwoDoneDbContext();
 
-//app.MapGet("/weatherforecast", () =>
-//{
-//    var forecast = Enumerable.Range(1, 5).Select(index =>
-//        new WeatherForecast
-//        (
-//            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//            Random.Shared.Next(-20, 55),
-//            summaries[Random.Shared.Next(summaries.Length)]
-//        ))
-//        .ToArray();
-//    return forecast;
-//})
-//.WithName("GetWeatherForecast")
-//.WithOpenApi();
+app.MapGet("/users", async () => await context.Users.ToListAsync())
+    .WithName("GetUsers")
+    .WithOpenApi();
+
+app.MapGet("/users/{userid:int}",
+    async (int userid) =>
+    {
+        var user = await context.Users.FindAsync(userid);
+        return user != null ? Results.Ok(user) : Results.NotFound();
+    })
+    .WithName("GetUser")
+    .WithOpenApi();
+
+app.MapPost("/users",
+    async ([FromBody]User user) =>
+    {
+        await context.Users.AddAsync(user);
+        await context.SaveChangesAsync();
+        return Results.Created($"/users/{user.Id}", user);
+    })
+    .WithName("CreateUser")
+    .WithOpenApi();
+
 
 app.Run();
 
-//internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-//{
-//    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-//}
