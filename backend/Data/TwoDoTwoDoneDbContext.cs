@@ -6,14 +6,12 @@ namespace Data
 {
     public class TwoDoTwoDoneDbContext : DbContext
     {
+        public TwoDoTwoDoneDbContext(DbContextOptions<TwoDoTwoDoneDbContext> options) : base(options)
+        {
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Domain.Task> Tasks { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // For Development Only!
-            optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS; Initial Catalog=TwoDoTwoDone_EfCore; Integrated Security=True; Encrypt=False");
-        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Domain.Task>()
@@ -55,7 +53,7 @@ namespace Data
                         LastName = "Houdini",
                         Mobile = "2345678901",
                         CreatedDate = DateTime.Now
-                    });            
+                    });
         }
     }
 }
