@@ -38,7 +38,7 @@ namespace Api
                 {
                     try
                     {
-                        var user = db.Users.Attach(new User { Id = userid, Email = String.Empty, Username = String.Empty });
+                        var user = db.Users.Attach(new User { Id = userid, Email = String.Empty, Password = String.Empty});
                         user.State = EntityState.Deleted;
                         await db.SaveChangesAsync();
                         return Results.NoContent();
