@@ -10,9 +10,10 @@ namespace Api
             var group = app.MapGroup("/users");
 
 
-            group.MapGet("/", async (TwoDoTwoDoneDbContext db) => await db.Users.ToListAsync())
+            group.MapGet("/", async (TwoDoTwoDoneDbContext db) => await db.Users.ToListAsync())                
                 .WithName("GetUsers")
-                .WithOpenApi();
+                .WithOpenApi()
+                .RequireAuthorization();
 
             group.MapGet("/{userid:int}",
                 async (int userid, TwoDoTwoDoneDbContext db) =>
@@ -21,7 +22,8 @@ namespace Api
                     return user != null ? Results.Ok(user) : Results.NotFound();
                 })
                 .WithName("GetUser")
-                .WithOpenApi();
+                .WithOpenApi()
+                .RequireAuthorization();
 
             group.MapPost("/",
                 async (User user, TwoDoTwoDoneDbContext db) =>
@@ -31,7 +33,8 @@ namespace Api
                     return Results.Created($"/users/{user.Id}", user);
                 })
                 .WithName("CreateUser")
-                .WithOpenApi();
+                .WithOpenApi()
+                .RequireAuthorization();
 
             group.MapDelete("/{userid:int}",
                 async (int userid, TwoDoTwoDoneDbContext db) =>
@@ -50,7 +53,8 @@ namespace Api
 
                 })
                 .WithName("DeleteUser")
-                .WithOpenApi();
+                .WithOpenApi()
+                .RequireAuthorization();
 
             return app;
         }
