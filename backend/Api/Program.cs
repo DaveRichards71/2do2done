@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using IdentityApi;
+using Microsoft.AspNetCore.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +31,7 @@ builder.Services.AddDbContext<TwoDoTwoDoneDbContext>(options =>
     options.UseSqlServer("Data Source=localhost\\SQLEXPRESS; Initial Catalog=TwoDoTwoDone_EfCore; Integrated Security=True; Encrypt=False");
 
 });
-
+builder.Services.AddSingleton<TokenGenerator>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -61,6 +63,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseHttpsRedirection();
+app.MapPost("/login", (LoginRequest request, TokenGenerator tokenGenerator) =>
+{
+    return new
+    {
+        access_token = tokenGenerator.GenerateToken(request.Email)
+    };
+});
 
 app.MapUsers();
 
