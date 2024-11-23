@@ -37,8 +37,8 @@ namespace Data
                     new User
                     {
                         Id = 1,
-                        Username = "Will",
                         Email = "will@email.com",
+                        Password = "ChangeMe!",
                         FirstName = "Will",
                         LastName = "Richards",
                         Mobile = "1234567890",
@@ -47,8 +47,8 @@ namespace Data
                     new User
                     {
                         Id = 2,
-                        Username = "charlie",
                         Email = "charlie@email.com",
+                        Password = "ChangeMe!",
                         FirstName = "Charlie",
                         LastName = "Houdini",
                         Mobile = "2345678901",
