@@ -1,1 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&display=swap');
+
+:root {
+    --primary-lightest: #cce0f5;
+    --primary-lighter: #99c2eb;
+    --primary: #336699;
+    --primary-darker: #254d73;
+    --primary-darkest: #19334d;
+
+    --success-lightest: #e8f5e9;
+    --success-lighter: #a5d6a7;
+    --success: #4caf50;
+    --success-darker: #388e3c;
+    --success-darkest: #1b5e20;
+
+    --warning-lightest: #fff3e0;
+    --warning-lighter: #ffcc80;
+    --warning: #ff9800;
+    --warning-darker: #f57c00;
+    --warning-darkest: #e65100;
+
+    --error-lightest: #ffebee;
+    --error-lighter: #ef9a9a;
+    --error: #f44336;
+    --error-darker: #d32f2f;
+    --error-darkest: #b71c1c;
+
+    --info-lightest: #d0e7f9;
+    --info-lighter: #a1cdef;
+    --info: #3399cc;
+    --info-darker: #267399;
+    --info-darkest: #1a4d66;
+
+    --background: #f5f5f5;
+    --text-color: #333333;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text-color);
+    font-family: 'Just Me Again Down Here', cursive;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: var(--success-lighter);
+    color: var(--success-darker);
+    padding: 1rem;
+    border-left: 5px solid var(--success);
+    margin: 1rem 0;
+}
+
+.alert-warning {
+    background-color: var(--warning-lighter);
+    color: var(--warning-darker);
+    padding: 1rem;
+    border-left: 5px solid var(--warning);
+    margin: 1rem 0;
+}
+
+.alert-error {
+    background-color: var(--error-lighter);
+    color: var(--error-darker);
+    padding: 1rem;
+    border-left: 5px solid var(--error);
+    margin: 1rem 0;
+}
+
+.alert-info {
+    background-color: var(--info-lighter);
+    color: var(--info-darker);
+    padding: 1rem;
+    border-left: 5px solid var(--info);
+    margin: 1rem 0;
+}
