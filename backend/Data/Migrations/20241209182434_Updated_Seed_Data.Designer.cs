@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(TwoDoTwoDoneDbContext))]
-    partial class TwoDoTwoDoneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241209182434_Updated_Seed_Data")]
+    partial class Updated_Seed_Data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,6 +92,38 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 12, 9, 13, 24, 34, 431, DateTimeKind.Local).AddTicks(1615),
+                            Email = "linguistwill@gmail.com",
+                            FirstName = "Will",
+                            LastName = "Richards",
+                            Mobile = "5746993344",
+                            Password = "ChangeMe!"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 12, 9, 13, 24, 34, 431, DateTimeKind.Local).AddTicks(1619),
+                            Email = "chueni@horsesaddleshop.com",
+                            FirstName = "Charlie",
+                            LastName = "Hueni",
+                            Mobile = "5742481595",
+                            Password = "ChangeMe!"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 12, 9, 13, 24, 34, 431, DateTimeKind.Local).AddTicks(1622),
+                            Email = "daverichards71.com",
+                            FirstName = "Dave",
+                            LastName = "Richards",
+                            Mobile = "5745143961",
+                            Password = "ChangeMe!"
+                        });
                 });
 
             modelBuilder.Entity("UserUser", b =>

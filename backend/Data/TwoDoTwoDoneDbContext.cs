@@ -31,29 +31,6 @@ namespace Data
                 .WithMany(u => u.AcceptsTasksFrom)
                 .UsingEntity(j => j.ToTable("UserUser"));
 
-            // Seed Data 
-            modelBuilder.Entity<User>()
-                .HasData(
-                    new User
-                    {
-                        Id = 1,
-                        Email = "will@email.com",
-                        Password = "ChangeMe!",
-                        FirstName = "Will",
-                        LastName = "Richards",
-                        Mobile = "1234567890",
-                        CreatedDate = DateTime.Now
-                    },
-                    new User
-                    {
-                        Id = 2,
-                        Email = "charlie@email.com",
-                        Password = "ChangeMe!",
-                        FirstName = "Charlie",
-                        LastName = "Houdini",
-                        Mobile = "2345678901",
-                        CreatedDate = DateTime.Now
-                    });
         }
     }
 }
